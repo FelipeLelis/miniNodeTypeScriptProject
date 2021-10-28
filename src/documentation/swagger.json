@@ -1,0 +1,248 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "'post' manipulation api",
+    "description": "This api aims to manipulate post data, as well as create, edit and remove",
+    "contact": {
+      "email": "felipesrlgo@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5500",
+      "description": "Test api"
+    }
+  ],
+  "paths": {
+    "/api/post": {
+      "post": {
+        "summary": "Register a post",
+        "description": "This route is responsible for registering a new post",
+        "tags": [
+          "Post"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Post"
+              },
+              "examples": {
+                "post": {
+                  "value": {
+                    "post": [
+                      {
+                        "title": "Title test",
+                        "body": "Body test",
+                        "tags": [
+                          "Tag1",
+                          "Tag2"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Internal server error"
+          },
+          "200": {
+            "description": "Data created successfully"
+          }
+        }
+      }
+    },
+    "/api/posts": {
+      "get": {
+        "summary": "List all posts",
+        "description": "This route is responsible for listing all posts",
+        "tags": [
+          "Post"
+        ],
+        "responses": {
+          "401": {
+            "description": "Internal server error"
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/": {
+      "get": {
+        "summary": "List a post",
+        "description": "\nList a post according to id",
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "post ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Internal server error"
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Data"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/post/edit": {
+      "put": {
+        "summary": "Edit a post",
+        "description": "This route is responsible for editing a post.",
+        "tags": [
+          "Post"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Post"
+              },
+              "examples": {
+                "post": {
+                  "value": {
+                    "post": [
+                      {
+                        "id": "0ea9a737-a3db-4d68-b9ab-3045b7701d53",
+                        "title": "Title test",
+                        "body": "Body test",
+                        "tags": [
+                          "Tag1",
+                          "Tag2"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Internal server error"
+          },
+          "200": {
+            "description": "Data edited successfully"
+          }
+        }
+      }
+    },
+    "/api/post/delete": {
+      "delete": {
+        "summary": "Delete a post",
+        "description": "Delete a post according to id",
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "post ID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Internal server error"
+          },
+          "200": {
+            "description": "ok",
+            "description": "Post successfully deleted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Post": {
+        "type": "object",
+        "properties": {
+          "post": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "body": {
+                  "type": "string"
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Data": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "body": {
+                  "type": "string"
+                },
+                "tags": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
